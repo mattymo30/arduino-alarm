@@ -16,13 +16,15 @@ void setup() {
 void loop() {
   // just set a countdown for 10 seconds
   while (timer > 0) {
+    delay(1000);
     timer -= 1;
     lcd.setCursor(0, 1);
-    lcd.print("00:00:");
+    lcd.print("00:00:0");
     lcd.print(String(timer));
-    delay(1000);
+    
   }
-
+  lcd.setCursor(0, 0);
+  lcd.print("Timer done!");
   callPeizo();
 }
 
