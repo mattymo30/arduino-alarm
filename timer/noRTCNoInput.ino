@@ -1,20 +1,19 @@
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-const int peizoPin = 6;
+const int peizoPin = 8;
 int timer = 10;
+bool done = false;
 
 void setup() {
   lcd.begin(16, 2);
   pinMode(peizoPin, OUTPUT);
-  # testing purposes, set to 10 seconds
   lcd.print("Timer set!");
   lcd.setCursor(0, 1);
   lcd.print("00:00:10");
 }
 
 void loop() {
-  // just set a countdown for 10 seconds
   while (timer > 0) {
     delay(1000);
     timer -= 1;
@@ -23,13 +22,16 @@ void loop() {
     lcd.print(String(timer));
     
   }
-  lcd.setCursor(0, 0);
-  lcd.print("Timer done!");
-  callPeizo();
+  if (!done) {
+    lcd.setCursor(0, 0);
+    lcd.print("Timer done!");
+    callPeizo();
+    done = true;
+  }
+
 }
 
 
 void callPeizo() {
-  // set a default frequency alarm for 2 seconds
-  tone(peizoPin, 1000, 2000);
+  tone(peizoPin, 500, 1500);
 }
